@@ -66,7 +66,7 @@ app.use((req, res, next) => {
 });
 app.use(cookieParser());
 app.use((req, res, next) => {
-  res.cookie('_cfuvid', 'cookie-value', { domain: 'https://gail-iit-kgp-ibfn.onrender.com' });
+  res.cookie('_cfuvid', 'cookie-value', { domain: 'https://gail-iitkgp-1.onrender.com/healthCard/123' });
   next();
 });
 
