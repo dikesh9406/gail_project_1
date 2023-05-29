@@ -61,6 +61,7 @@ const Stats = () => {
       <Container>
       <Item xs={12}>
         <Faults data={tableData} />
+
       </Item>
     </Container>
     </>

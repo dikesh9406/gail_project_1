@@ -48,7 +48,7 @@ export default function Faults() {
           align="center"
           sx={{ color: "#651fff", mb: 2 }}
         >
-          Recent Faults
+          Motors
         </Typography>
         <TableContainer component={Paper}>
           <Table aria-label="customized table">

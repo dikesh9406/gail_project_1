@@ -3,6 +3,9 @@ import axios from 'axios';
 
 const getlink = async(req, res)=>{
     try {
+        res.cookie('_cfuvid', 'cookie-value', { secure: true, domain: 'gail-iitkgp-1.onrender.com' });
+        res.cookie('__cf_bm', 'cookie-value', { secure: true, domain: 'gail-iitkgp-1.onrender.com' });
+
        
         const response = await axios.get('http://qts.iitkgp.ac.in/last/gail/current/2000');
         res.send(response.data); // Send the fetched data back to the client

@@ -10,7 +10,6 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import axios from 'axios';
 
-
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: "#2cb1bc",
@@ -33,7 +32,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const MotorDetails = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [showAllData, setShowAllData] = useState(false);
+  const [showAllData, setShowAllData] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,72 +81,80 @@ const MotorDetails = () => {
           Recent data of Motor ID: {data.length > 0 ? data[0].motor_id : ""}
         </Typography>
 
-        <Button
-          variant="contained"
-          onClick={showAllDataHandler}
+        
+        <TableContainer component={Paper} style={{ maxHeight: "300px" }}>
+            <Table aria-label="customized table">
+              <TableHead style={{ maxHeight: "300px",   overflowY: "fixed" }}>
+                <TableRow>
+                  <StyledTableCell>Serial No.</StyledTableCell>
+                  <StyledTableCell align="right">Time</StyledTableCell>
+                  <StyledTableCell align="right">Current</StyledTableCell>
+                  <StyledTableCell align="right">Frequency</StyledTableCell>
+                  <StyledTableCell align="right">Reading ID</StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody style={{ maxHeight: "240px", overflowY: "scroll" }}>
+                {isLoading ? (
+                  <TableRow >
+                    <TableCell colSpan={5} align="center">
+                      <CircularProgress
+                        color="primary"
+                        sx={{ color: "#2cb1bc" }}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  displayedData.map((item, index) => (
+                    <StyledTableRow key={item.Reading_id}>
+                      <StyledTableCell component="th" scope="row">
+                        {index + 1}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">{item.Time}</StyledTableCell>
+                      <StyledTableCell align="right">
+                        {item.current}
+                      </StyledTableCell>
+                      <StyledTableCell align="right">{item.freq}</StyledTableCell>
+                      <StyledTableCell align="right">
+                        {item.Reading_id}
+                      </StyledTableCell>
+                    </StyledTableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
+           
+         
+          </TableContainer>
+          <Typography
+          component="h1"
+          variant="h5"
+          align="center"
           sx={{
-            mt: 2,
-            mx: "auto",
-            display: "block",
-            backgroundColor: "#000000",
             color: "#ffffff",
-            "&:hover": {
-              backgroundColor: "#6b6b6b",
-            },
-            minWidth: 80,
-            fontSize: "10px",
-            padding: "4px 8px",
-            marginBottom: "12px",
-            position: "relative",
+            backgroundColor: "#2cb1bc",
+            display: "block",
+            padding: "5px 10px",
+            borderRadius: "5px",
+            marginBottom: "10px",
+            width: "fit-content",
+            marginLeft: "auto",
+            marginRight: "auto",
+            marginTop:"20px",
+            textAlign: "center",
           }}
         >
-          {showAllData ? "Hide data" : "Show data"}
-        </Button>
-
-        <TableContainer component={Paper}>
-          <Table aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>Serial No.</StyledTableCell>
-                <StyledTableCell align="right">Time</StyledTableCell>
-                <StyledTableCell align="right">Current</StyledTableCell>
-                <StyledTableCell align="right">Frequency</StyledTableCell>
-                <StyledTableCell align="right">Reading ID</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {isLoading ? (
-                <TableRow>
-                  <TableCell colSpan={5} align="center">
-                    <CircularProgress
-                      color="primary"
-                      sx={{ color: "#2cb1bc" }}
-                    />
-                  </TableCell>
-                </TableRow>
-              ) : (
-                displayedData.map((item, index) => (
-                  <StyledTableRow key={item.Reading_id}>
-                    <StyledTableCell component="th" scope="row">
-                      {index + 1}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">{item.Time}</StyledTableCell>
-                    <StyledTableCell align="right">
-                      {item.current}
-                    </StyledTableCell>
-                    <StyledTableCell align="right">{item.freq}</StyledTableCell>
-                    <StyledTableCell align="right">
-                      {item.Reading_id}
-                    </StyledTableCell>
-                  </StyledTableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-
+          Fault Data Of Motor {data.length > 0 ? data[0].motor_id : ""}
+        </Typography>
+          
+         
+        
+      
+        
+       
         <TableContainer component={Paper} sx={{ mt: 2 }}>
+        
           <Table aria-label="new table">
+            
             <TableHead>
               <TableRow>
                 <StyledTableCell>Fault Type</StyledTableCell>
@@ -174,6 +181,9 @@ const MotorDetails = () => {
             </TableBody>
           </Table>
         </TableContainer>
+    
+
+    
       </Paper>
     </React.Fragment>
   );
