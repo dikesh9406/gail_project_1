@@ -143,13 +143,8 @@ const MotorDetails = () => {
             textAlign: "center",
           }}
         >
-          Fault Data Of Motor {data.length > 0 ? data[0].motor_id : ""}
+          Fault Data Of Motor
         </Typography>
-          
-         
-        
-      
-        
        
         <TableContainer component={Paper} sx={{ mt: 2 }}>
         
@@ -181,11 +176,36 @@ const MotorDetails = () => {
             </TableBody>
           </Table>
         </TableContainer>
+       
     
 
     
       </Paper>
+      <Typography
+          component="h1"
+          variant="h5"
+          align="center"
+          sx={{
+            color: "#ffffff",
+            backgroundColor: "#2cb1bc",
+            display: "block",
+            padding: "25px 50px",
+            borderRadius: "5px",
+            marginBottom: "10px",
+            width: "fit-content",
+            marginLeft: "auto",
+            marginRight: "auto",
+            // marginTop: "20px",
+            textAlign: "center",
+            fontWeight: "bold",
+            fontSize: "30px",
+          }}
+        >
+          RUL of Motor:____
+        </Typography>
+      
     </React.Fragment>
+    
   );
 };
 
