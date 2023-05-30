@@ -52,7 +52,7 @@ app.use(mongoSanitize());
 app.use(cookieParser());
 // app.use(cors());
 
-app.use('/api/v1/auth', authRouter);
+app.use('/api/api/v1/auth', authRouter);
 app.use('/api/v1/jobs', authenticateUser, jobsRouter);
 app.use('/api/v1/motor', motorRoutes);
 
