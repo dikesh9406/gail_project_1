@@ -46,7 +46,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
 app.use(helmet());
-app.use(cors());
+app.use(cors(
+  {
+    origin: "http://qts.iitkgp.ac.in/last/gail/current/2000",
+  }
+));
 app.use(xss());
 app.use(mongoSanitize());
 app.use(cookieParser());
