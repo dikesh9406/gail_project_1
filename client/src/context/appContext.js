@@ -128,7 +128,7 @@ const AppProvider = ({ children }) => {
   };
 
   const logoutUser = async () => {
-    await authFetch.get('/auth/logout');
+    await authFetch.get('/api/auth/logout');
     dispatch({ type: LOGOUT_USER });
   };
   const updateUser = async (currentUser) => {
@@ -281,7 +281,7 @@ const AppProvider = ({ children }) => {
   const getCurrentUser = async () => {
     dispatch({ type: GET_CURRENT_USER_BEGIN });
     try {
-      const { data } = await authFetch('/auth/getCurrentUser');
+      const { data } = await authFetch('/api/auth/getCurrentUser');
       const { user, location } = data;
 
       dispatch({
