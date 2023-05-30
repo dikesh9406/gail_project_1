@@ -19,6 +19,8 @@ const Landing = () => {
           <Logo />
           <Logo2 />
         </nav>
+      <br />
+      <br />
         
         <div className='container page'>
           <div className='info'>
@@ -27,8 +29,7 @@ const Landing = () => {
                 Motor <span>Condition</span> Monitoring
               </h1>
               <h4>
-                <br />
-                <br />
+                
                 Project under: <br />
                 Gas India Ltd (GAIL)
               </h4>
@@ -39,11 +40,10 @@ const Landing = () => {
             </Link>
           </div>
           
-          <img
-            src='https://www.pngmart.com/files/6/Electric-Motor-PNG-Free-Download.png'
-            alt='new'
-            className='img main-img'
-          />
+          <img 
+      src="https://cdn-icons-png.flaticon.com/512/6292/6292175.png"
+      alt="new"
+      />
         </div>
       </Wrapper>
     </React.Fragment>

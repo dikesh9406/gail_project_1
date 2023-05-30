@@ -1,4 +1,7 @@
 # Jobify
+//////
+https://medium.com/geekculture/deploying-a-react-app-and-a-node-js-server-on-a-single-machine-with-pm2-and-nginx-15f17251ee74
+/////
 
 #### Track Your Job Search
 
