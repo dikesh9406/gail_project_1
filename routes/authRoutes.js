@@ -19,9 +19,9 @@ import authenticateUser from '../middleware/auth.js';
 import testUser from '../middleware/testUser.js';
 router.route('/register').post(apiLimiter, register);
 router.route('/login').post(apiLimiter, login);
-router.get('/api/v1/logout', logout);
+router.get('/logout', logout);
 
 router.route('/updateUser').patch(authenticateUser, testUser, updateUser);
-router.route('/api/v1/getCurrentUser').get(authenticateUser, getCurrentUser);
+router.route('/getCurrentUser').get(authenticateUser, getCurrentUser);
 
 export default router;
