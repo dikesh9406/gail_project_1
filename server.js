@@ -48,7 +48,7 @@ app.use(express.json());
 app.use(helmet());
 app.use(cors(
   {
-    origin: "http://qts.iitkgp.ac.in/last/gail/current/2000",
+    origin: "http://qts.iitkgp.ac.in",
   }
 ));
 app.use(xss());
