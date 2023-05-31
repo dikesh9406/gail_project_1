@@ -4,6 +4,7 @@ import { Container } from '@mui/system';
 import { Grid, Paper } from '@mui/material';
 import MotorDetails from './detail';
 import Charts from '../charts/displayCharts';
+import Charts2 from '../charts/displayCharts2';
 
 
 
@@ -26,8 +27,10 @@ export default function HealthCard() {
                 {/* Chart */}
                 <Grid item xs={12} >
                 <Charts />
+                <Charts2/>
 
                 </Grid>
+                
             
             </Grid>
         

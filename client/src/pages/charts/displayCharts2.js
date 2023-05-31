@@ -17,44 +17,48 @@ import {
   LineSeries,
 } from 'react-jsx-highcharts';
 
-
-const Charts = () => {
+const Charts2 = () => {
   const [currentData, setCurrentData] = useState([]);
   const [frequencyData, setFrequencyData] = useState([]);
+  const [selectedRange, setSelectedRange] = useState('realtime');
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await Axios.get('http://qts.iitkgp.ac.in/last/gail/current/2000');
-  //       const data = response.data;
-
-  //       const currentTime = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
-
-  //       setCurrentData((prevData) => [...prevData.slice(-229), [Date.now() + 19800000, data[0].current]]);
-  //       setFrequencyData((prevData) => [...prevData.slice(-229), [Date.now() + 19800000, data[0].freq]]);
-  //     } catch (error) {
-  //       console.error('Error fetching current data:', error);
-  //     }
-  //   };
-
-  //   const interval = setInterval(fetchData, 2000);
-
-  //   return () => {
-  //     clearInterval(interval);
-  //   };
-  // }, []);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('/api/v1/motor/proxy');
-        const data = response.data;// Store all the fetched data
-        // const currentTime = new Date().toLocaleString('en-US', { timeZone: 'Asia/Kolkata' });
+        const data = response.data;
 
-            setCurrentData((prevData) => [...prevData.slice(-59), [Date.now() + 19800000, data[0].current]]);
-        setFrequencyData((prevData) => [...prevData.slice(-59), [Date.now() + 19800000, data[0].freq]]);
-      
+        let filteredData;
+
+        // Filter data based on the selected range
+        switch (selectedRange) {
+          case 'realtime':
+            filteredData = data;
+            break;
+          case 'past1day':
+            filteredData = filterDataByTimeRange(data, 1, 'day');
+            break;
+          case 'past1week':
+            filteredData = filterDataByTimeRange(data, 1, 'week');
+            break;
+          case 'past1month':
+            filteredData = filterDataByTimeRange(data, 1, 'month');
+            break;
+          case 'past1year':
+            filteredData = filterDataByTimeRange(data, 1, 'year');
+            break;
+          default:
+            filteredData = data;
+        }
+
+        setCurrentData(
+          filteredData.map((item) => [new Date(item.Time).getTime(), item.current])
+        );
+        setFrequencyData(
+          filteredData.map((item) => [new Date(item.Time).getTime(), item.freq])
+        );
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error);
       }
     };
 
@@ -63,11 +67,46 @@ const Charts = () => {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [selectedRange]);
+
+  const filterDataByTimeRange = (data, value, unit) => {
+    const currentDate = new Date();
+    const pastDate = new Date();
+    switch (unit) {
+      case 'day':
+        pastDate.setDate(currentDate.getDate() - value);
+        break;
+      case 'week':
+        pastDate.setDate(currentDate.getDate() - value * 7);
+        break;
+      case 'month':
+        pastDate.setMonth(currentDate.getMonth() - value);
+        break;
+      case 'year':
+        pastDate.setFullYear(currentDate.getFullYear() - value);
+        break;
+      default:
+        pastDate.setDate(currentDate.getDate() - value);
+    }
+
+    return data.filter((item) => new Date(item.Time) > pastDate);
+  };
+
+  const handleRangeChange = (event) => {
+    setSelectedRange(event.target.value);
+  };
 
   return (
     <div>
-    <Typography>Real Time Graph:</Typography>
+      <Typography>Historical Graph:</Typography>
+      <select value={selectedRange} onChange={handleRangeChange}>
+       
+        <option value="past1day">Past 1 Day</option>
+        <option value="past1week">Past 1 Week</option>
+        <option value="past1month">Past 1 Month</option>
+        <option value="past1year">Past 1 Year</option>
+      </select>
+
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -131,4 +170,4 @@ const Charts = () => {
   );
 };
 
-export default withHighcharts(Charts, Highcharts);
+export default withHighcharts(Charts2, Highcharts);

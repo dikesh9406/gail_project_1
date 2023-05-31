@@ -5,7 +5,6 @@ import { Typography } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
@@ -30,6 +29,14 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+function createData(_id, motorStatus, motorType) {
+  return { _id, motorStatus, motorType };
+}
+
+const rows = [
+  createData("123", "-", "-"),
+];
+
 export default function Faults({ data }) {
   return (
     <React.Fragment>
@@ -42,36 +49,34 @@ export default function Faults({ data }) {
         >
           Motors
         </Typography>
-        <TableContainer component={Paper} sx={{ maxHeight: 400 }}>
-          <Table aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>Motor ID</StyledTableCell>
-                <StyledTableCell align="right">Motor Status</StyledTableCell>
-                <StyledTableCell align="right">Motor Type</StyledTableCell>
-                <StyledTableCell align="right">HealthCard</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.map((row, index) => (
-                <StyledTableRow key={index}>
-                  <StyledTableCell component="th" scope="row">
-                    {row._id}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.motorStatus}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    {row.motorType}
-                  </StyledTableCell>
-                  <StyledTableCell align="right">
-                    <Link to={`/healthCard/${row._id}`}>HealthCard</Link>
-                  </StyledTableCell>
-                </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <Table aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell>Motor ID</StyledTableCell>
+              <StyledTableCell align="right">Motor Status</StyledTableCell>
+              <StyledTableCell align="right">Motor Type</StyledTableCell>
+              <StyledTableCell align="right">HealthCard</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody >
+            {data.map((row, index) => (
+              <StyledTableRow key={index}>
+                <StyledTableCell component="th" scope="row">
+                  {row._id}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.motorStatus}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.motorType}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  <Link to={`/healthCard/${row._id}`}>HealthCard</Link>
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
+          </TableBody>
+        </Table>
       </Paper>
     </React.Fragment>
   );
