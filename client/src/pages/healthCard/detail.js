@@ -9,7 +9,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import axios from 'axios';
-import {API} from '../utilities/API';
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -38,7 +38,8 @@ const MotorDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${API}/api/v1/motor/proxy`);
+        console.log("hello");
+        const response = await axios.get(`/api/v1/motor/proxy`);
         setData(response.data); // Store all the fetched data
         setIsLoading(false);
       } catch (error) {
@@ -91,7 +92,7 @@ const MotorDetails = () => {
                   <StyledTableCell align="right">Time</StyledTableCell>
                   <StyledTableCell align="right">Current</StyledTableCell>
                   <StyledTableCell align="right">Frequency</StyledTableCell>
-                  <StyledTableCell align="right">Reading ID</StyledTableCell>
+                  <StyledTableCell align="right">Fault Frequency</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody style={{ maxHeight: "240px", overflowY: "scroll" }}>
@@ -116,7 +117,7 @@ const MotorDetails = () => {
                       </StyledTableCell>
                       <StyledTableCell align="right">{item.freq}</StyledTableCell>
                       <StyledTableCell align="right">
-                        {item.Reading_id}
+                        __
                       </StyledTableCell>
                     </StyledTableRow>
                   ))
