@@ -44,7 +44,7 @@ const MotorDetails = () => {
       } catch (error) {
         console.error("Error fetching data:", error);
       }
-    };
+   };
 
     const interval = setInterval(fetchData, 5000);
 
