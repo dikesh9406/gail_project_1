@@ -9,6 +9,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import axios from 'axios';
+import {API} from '../utilities/API';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -37,7 +38,7 @@ const MotorDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/api/v1/motor/proxy');
+        const response = await axios.get(`${API}/api/v1/motor/proxy`);
         setData(response.data); // Store all the fetched data
         setIsLoading(false);
       } catch (error) {
