@@ -13,7 +13,6 @@ const AddJob = () => {
     motorName,
     motorBrand,
     motorLocation,
-    motorID,
     motorType,
     jobTypeOptions,
     motorStatus,
@@ -25,7 +24,7 @@ const AddJob = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!motorName || !motorBrand || !motorLocation || !motorID) {
+    if (!motorName || !motorBrand || !motorLocation) {
       displayAlert();
       return;
     }
@@ -36,7 +35,6 @@ const AddJob = () => {
       motorLocation,
       motorStatus,
       motorType,
-      
     };
 
     try {
@@ -47,10 +45,12 @@ const AddJob = () => {
       }
 
       console.log('Form data sent successfully');
+      createJob();
       // Optionally, you can display a success message or redirect to another page
     } catch (error) {
       console.error('Error sending form data:', error);
-      displayAlert();
+      // displayAlert();
+      createJob();
     }
   };
 
@@ -85,7 +85,7 @@ const AddJob = () => {
   return (
     <Wrapper>
       <form className='form'>
-        <h3>{isEditing ? 'Edit Motor' : 'Add Motor'}</h3>
+        <h3>{isEditing ? 'edit Motor' : 'add Motor'}</h3>
         {showAlert && <Alert />}
         <div className='form-center'>
           {/* motorName */}
@@ -112,8 +112,6 @@ const AddJob = () => {
             value={motorLocation}
             handleChange={handleJobInput}
           />
-          {/* motorID */}
-         
           {/* Motor status */}
           <FormRowSelect
             name='motorStatus'
@@ -138,7 +136,7 @@ const AddJob = () => {
               onClick={handleSubmit}
               disabled={isLoading}
             >
-              Submit
+              submit
             </button>
             <button
               className='btn btn-block clear-btn'
@@ -147,7 +145,7 @@ const AddJob = () => {
                 clearValues();
               }}
             >
-              Clear
+              clear
             </button>
           </div>
         </div>

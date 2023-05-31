@@ -45,12 +45,12 @@ const initialState = {
   showSidebar: false,
   isEditing: false,
   editJobId: '',
-  motorName: '',
-  motorBrand: '',
-  motorLocation: '',
-  jobTypeOptions: ['Selcet','Type A', 'Type B', 'Type C', 'Type D'],
+  position: '',
+  company: '',
+  jobLocation: '',
+  jobTypeOptions: ['Type A', 'Type B', 'Type C', 'Type D'],
   jobType: 'Type A',
-  statusOptions: ['Select', 'Working', 'Faulty', 'Not Working'],
+  statusOptions: ['Working', 'Faulty', 'Not Working'],
   status: 'Not Working',
   jobs: [],
   totalJobs: 0,
@@ -161,16 +161,13 @@ const AppProvider = ({ children }) => {
   const createJob = async () => {
     dispatch({ type: CREATE_JOB_BEGIN });
     try {
-      const { motorName, motorBrand, motorLocation,  motorStatus,
-        motorType,
-        motorID } = state;
+      const { position, company, jobLocation, jobType, status } = state;
       await authFetch.post('/jobs', {
-        motorName,
-      motorBrand,
-      motorLocation,
-      motorStatus,
-      motorType,
-      motorID,
+        position,
+        company,
+        jobLocation,
+        jobType,
+        status,
       });
       dispatch({ type: CREATE_JOB_SUCCESS });
       dispatch({ type: CLEAR_VALUES });
@@ -216,11 +213,11 @@ const AppProvider = ({ children }) => {
     dispatch({ type: EDIT_JOB_BEGIN });
 
     try {
-      const { motorName, motorBrand, motorLocation, jobType, status } = state;
+      const { position, company, jobLocation, jobType, status } = state;
       await authFetch.patch(`/jobs/${state.editJobId}`, {
-        motorBrand,
-        motorName,
-        motorLocation,
+        company,
+        position,
+        jobLocation,
         jobType,
         status,
       });
@@ -271,15 +268,6 @@ const AppProvider = ({ children }) => {
   const changePage = (page) => {
     dispatch({ type: CHANGE_PAGE, payload: { page } });
   };
-/////////////////////////////////////////
-
-
-
-
-
-
-
-////////////////////////////////////////
 
   const getCurrentUser = async () => {
     dispatch({ type: GET_CURRENT_USER_BEGIN });
@@ -299,9 +287,6 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     getCurrentUser();
   }, []);
-
-
-
 
   return (
     <AppContext.Provider

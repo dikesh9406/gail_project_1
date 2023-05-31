@@ -29,8 +29,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(_id, motorStatus, motorType) {
-  return { _id, motorStatus, motorType };
+function createData(_id, motorStatus, motorType, createdAt) {
+  return { _id, motorStatus, motorType, createdAt };
 }
 
 const rows = [
@@ -55,6 +55,7 @@ export default function Faults({ data }) {
               <StyledTableCell>Motor ID</StyledTableCell>
               <StyledTableCell align="right">Motor Status</StyledTableCell>
               <StyledTableCell align="right">Motor Type</StyledTableCell>
+              <StyledTableCell align="right">Created At</StyledTableCell>
               <StyledTableCell align="right">HealthCard</StyledTableCell>
             </TableRow>
           </TableHead>
@@ -69,6 +70,9 @@ export default function Faults({ data }) {
                 </StyledTableCell>
                 <StyledTableCell align="right">
                   {row.motorType}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.createdAt}
                 </StyledTableCell>
                 <StyledTableCell align="right">
                   <Link to={`/healthCard/${row._id}`}>HealthCard</Link>
