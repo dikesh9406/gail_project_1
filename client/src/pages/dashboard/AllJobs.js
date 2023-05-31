@@ -1,11 +1,11 @@
-import { JobsContainer, SearchContainer} from '../../components'
+import { JobsContainer, SearchContainer, GraphC } from '../../components'
 
 const AllJobs = () => {
   return (
     <>
       <SearchContainer />
       <JobsContainer />
-      {/* <GraphC/> */}
+     
     </>
   )
 }

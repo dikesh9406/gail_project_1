@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { FormRow, FormRowSelect, Alert } from '../../components';
 import { useAppContext } from '../../context/appContext';
 import Wrapper from '../../assets/wrappers/DashboardFormPage';
@@ -9,27 +10,48 @@ const AddJob = () => {
     isEditing,
     showAlert,
     displayAlert,
-    position,
-    company,
-    jobLocation,
-    jobType,
+    motorName,
+    motorBrand,
+    motorLocation,
+    motorID,
+    motorType,
     jobTypeOptions,
-    status,
+    motorStatus,
     statusOptions,
     handleChange,
     clearValues,
-    createJob,
-    editJob,
   } = useAppContext();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (isEditing) {
-      editJob();
+    if (!motorName || !motorBrand || !motorLocation || !motorID) {
+      displayAlert();
       return;
     }
-    createJob();
+
+    const formData = {
+      motorName,
+      motorBrand,
+      motorLocation,
+      motorStatus,
+      motorType,
+      
+    };
+
+    try {
+      if (isEditing) {
+        await editJob(formData);
+      } else {
+        await createJob(formData);
+      }
+
+      console.log('Form data sent successfully');
+      // Optionally, you can display a success message or redirect to another page
+    } catch (error) {
+      console.error('Error sending form data:', error);
+      displayAlert();
+    }
   };
 
   const handleJobInput = (e) => {
@@ -38,49 +60,73 @@ const AddJob = () => {
     handleChange({ name, value });
   };
 
+  const createJob = async (formData) => {
+    try {
+      const response = await axios.post('/api/v1/motor', formData);
+      console.log('Job created:', response.data);
+      // Optionally, you can perform additional actions after a successful create request
+    } catch (error) {
+      console.error('Error creating job:', error);
+      throw error;
+    }
+  };
+
+  const editJob = async (formData) => {
+    try {
+      const response = await axios.put(`/api/v1/motor`, formData);
+      console.log('Job edited:', response.data);
+      // Optionally, you can perform additional actions after a successful edit request
+    } catch (error) {
+      console.error('Error editing job:', error);
+      throw error;
+    }
+  };
+
   return (
     <Wrapper>
       <form className='form'>
-        <h3>{isEditing ? 'edit Motor' : 'add Motor'}</h3>
+        <h3>{isEditing ? 'Edit Motor' : 'Add Motor'}</h3>
         {showAlert && <Alert />}
         <div className='form-center'>
-          {/* position */}
+          {/* motorName */}
           <FormRow
             type='text'
             labelText='Motor Name'
-            name='position'
-            value={position || ''}
+            name='motorName'
+            value={motorName}
             handleChange={handleJobInput}
           />
-          {/* company */}
+          {/* motorBrand */}
           <FormRow
             type='text'
             labelText='Motor Brand'
-            name='company'
-            value={company || ''}
+            name='motorBrand'
+            value={motorBrand}
             handleChange={handleJobInput}
           />
           {/* location */}
           <FormRow
             type='text'
             labelText='Motor Location'
-            name='jobLocation'
-            value={jobLocation || ''}
+            name='motorLocation'
+            value={motorLocation}
             handleChange={handleJobInput}
           />
+          {/* motorID */}
+         
           {/* Motor status */}
           <FormRowSelect
-            name='status'
+            name='motorStatus'
             labelText='Motor Status'
-            value={status || ''}
+            value={motorStatus}
             handleChange={handleJobInput}
             list={statusOptions}
           />
           {/* job type */}
           <FormRowSelect
-            name='jobType'
+            name='motorType'
             labelText='Motor Type'
-            value={jobType || ''}
+            value={motorType}
             handleChange={handleJobInput}
             list={jobTypeOptions}
           />
@@ -92,7 +138,7 @@ const AddJob = () => {
               onClick={handleSubmit}
               disabled={isLoading}
             >
-              submit
+              Submit
             </button>
             <button
               className='btn btn-block clear-btn'
@@ -101,7 +147,7 @@ const AddJob = () => {
                 clearValues();
               }}
             >
-              clear
+              Clear
             </button>
           </div>
         </div>

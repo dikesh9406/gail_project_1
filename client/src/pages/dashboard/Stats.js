@@ -38,7 +38,7 @@ const Stats = () => {
   const fetchTableData = async () => {
     try {
       const response = await axios.get('/api/v1/motor'); // Replace with your backend route URL
-     
+    //  
       setTableData(response.data);
     } catch (error) {
       console.error('Error fetching table data:', error);

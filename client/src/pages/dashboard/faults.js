@@ -30,15 +30,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(motorID, emergencyContact, faultTime) {
-  return { motorID, emergencyContact, faultTime };
-}
-
-const rows = [
-  createData("123", "-", "-"),
-];
-
-export default function Faults() {
+export default function Faults({ data }) {
   return (
     <React.Fragment>
       <Paper sx={{ m: 2 }}>
@@ -50,32 +42,30 @@ export default function Faults() {
         >
           Motors
         </Typography>
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{ maxHeight: 400 }}>
           <Table aria-label="customized table">
             <TableHead>
               <TableRow>
                 <StyledTableCell>Motor ID</StyledTableCell>
-                <StyledTableCell align="right">Fault Time</StyledTableCell>
-                <StyledTableCell align="right">
-                  Emergency Contact
-                </StyledTableCell>
+                <StyledTableCell align="right">Motor Status</StyledTableCell>
+                <StyledTableCell align="right">Motor Type</StyledTableCell>
                 <StyledTableCell align="right">HealthCard</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
-                <StyledTableRow key={row.motorID}>
+              {data.map((row, index) => (
+                <StyledTableRow key={index}>
                   <StyledTableCell component="th" scope="row">
-                    {row.motorID}
+                    {row._id}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {row.faultTime}
+                    {row.motorStatus}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    {row.emergencyContact}
+                    {row.motorType}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    <Link to={`/healthCard/${row.motorID}`}>HealthCard</Link>
+                    <Link to={`/healthCard/${row._id}`}>HealthCard</Link>
                   </StyledTableCell>
                 </StyledTableRow>
               ))}

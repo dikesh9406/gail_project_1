@@ -161,13 +161,16 @@ const AppProvider = ({ children }) => {
   const createJob = async () => {
     dispatch({ type: CREATE_JOB_BEGIN });
     try {
-      const { motorName, motorBrand, motorLocation, jobType, status } = state;
+      const { motorName, motorBrand, motorLocation,  motorStatus,
+        motorType,
+        motorID } = state;
       await authFetch.post('/jobs', {
         motorName,
-        motorBrand,
-        motorLocation,
-        jobType,
-        status,
+      motorBrand,
+      motorLocation,
+      motorStatus,
+      motorType,
+      motorID,
       });
       dispatch({ type: CREATE_JOB_SUCCESS });
       dispatch({ type: CLEAR_VALUES });
@@ -281,7 +284,7 @@ const AppProvider = ({ children }) => {
   const getCurrentUser = async () => {
     dispatch({ type: GET_CURRENT_USER_BEGIN });
     try {
-      const { data } = await authFetch('api/v1/auth/getCurrentUser');
+      const { data } = await authFetch('/auth/getCurrentUser');
       const { user, location } = data;
 
       dispatch({

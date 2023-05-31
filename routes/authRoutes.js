@@ -22,6 +22,6 @@ router.route('/login').post(apiLimiter, login);
 router.get('/logout', logout);
 
 router.route('/updateUser').patch(authenticateUser, testUser, updateUser);
-router.route('api/v1/getCurrentUser').get(authenticateUser, getCurrentUser);
+router.route('/getCurrentUser').get(authenticateUser, getCurrentUser);
 
 export default router;
