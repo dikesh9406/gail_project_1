@@ -38,7 +38,7 @@ const MotorDetails = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("hello");
+        
         const response = await axios.get(`/api/v1/motor/proxy`);
         setData(response.data); // Store all the fetched data
         setIsLoading(false);
