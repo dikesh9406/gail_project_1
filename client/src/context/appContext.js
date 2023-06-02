@@ -51,7 +51,7 @@ const initialState = {
   jobTypeOptions: ['Type A', 'Type B', 'Type C', 'Type D'],
   jobType: 'Type A',
   statusOptions: ['Working', 'Faulty', 'Not Working'],
-  status: 'Not Working',
+  status: 'Working',
   jobs: [],
   totalJobs: 0,
   numOfPages: 1,
